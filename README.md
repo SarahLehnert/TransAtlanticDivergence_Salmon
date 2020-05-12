@@ -26,7 +26,7 @@ Scripts/code include:
 
 8- Twisst (/---) *************
 
-9- Linkage disequilibrium calculations (in plink and R) *************
+9- Linkage disequilibrium calculations (in plink and R)
 
 10- Recombination rate calculations (in R, with data from BLAST)
 
