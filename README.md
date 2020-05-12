@@ -6,6 +6,8 @@ Codes are provided for creating and analysing data and for recreating figures. N
 
 If you have any questions/problems with the scripts, please do not hesistate to contact me: sarah.lehnert@dfo-mpo.gc.ca
 
+-----
+
 <b>MS Title: </b>Divergent and linked selection shape patterns of genomic differentiation between European and North American Atlantic salmon (Salmo salar)
 
 <b>MS Authors:</b> Lehnert, Sarah; Kess, Tony; Bentzen, Paul; Clément, Marie; Bradbury, Ian
