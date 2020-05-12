@@ -32,7 +32,7 @@ Scripts/codes include:
 
 11- Gene density calculations (in R, with data from NCBI)
 
-12- Gene annotation plot (in R, with data from NCBI) *************
+12- Gene annotation plot (in R, with data from NCBI)
 
 13- Gene ontology analysis (in R, with data from NCBI) *************
 
