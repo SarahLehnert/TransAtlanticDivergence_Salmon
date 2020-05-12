@@ -8,7 +8,7 @@ If you have any questions/problems with the scripts, please do not hesistate to 
 
 -----
 
-Scripts/code include:
+Scripts/codes include:
 
 1- Map of sample sites (in R)
 
@@ -24,7 +24,7 @@ Scripts/code include:
 
 7- SweeD CLR (in SweeD - command line)
 
-8- Twisst (in Twisst - command line) *to be added
+8- Twisst (in Twisst - command line) (not included; see: https://github.com/simonhmartin/twisst)
 
 9- Linkage disequilibrium calculations (in plink and R)
 
