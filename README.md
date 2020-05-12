@@ -22,9 +22,9 @@ Scripts/code include:
 
 6- Tajima's D (in R)
 
-7- SweeD CLR (in SweeD)
+7- SweeD CLR (in SweeD - command line)
 
-8- Twisst (/---) *************
+8- Twisst (in Twisst - command line) *to be added
 
 9- Linkage disequilibrium calculations (in plink and R)
 
