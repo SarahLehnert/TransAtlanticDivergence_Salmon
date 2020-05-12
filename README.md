@@ -10,29 +10,29 @@ If you have any questions/problems with the scripts, please do not hesistate to 
 
 Scripts/code include:
 
-1- Map of sample sites (in R)
+1- Map of sample sites (in R) *************
 
 2- Pcadapt (in R)
 
 3- Fst (in plink and R)
 
-4- Mean Fst and pcadapt q-values per 1Mbp window (in R)
+4- Mean Fst per 1Mbp window (in R) (same script used for pcadapt q-values)
 
 5- Allele frequency calculations (in R)
 
-6- Tajima's D (in R)
+6- Tajima's D (in R) *************
 
 7- SweeD CLR (in SweeD)
 
-8- Twisst (/---)
+8- Twisst (/---) *************
 
-9- Linkage disequilibrium calculations (in plink and R)
+9- Linkage disequilibrium calculations (in plink and R) *************
 
 10- Recombination rate calculations (in R, with data from BLAST)
 
 11- Gene density calculations (in R, with data from NCBI)
 
-12- Gene annotation plot (in R, with data from NCBI)
+12- Gene annotation plot (in R, with data from NCBI) *************
 
 -----
 
