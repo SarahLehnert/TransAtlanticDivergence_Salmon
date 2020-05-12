@@ -1,0 +1,77 @@
+#Libraries
+library(PopGenome)
+library(ggplot2)
+
+#This R script is for Tajima's D calculations for Ssa19 (the same script was used for other chromosomes )
+
+setwd(dir = "/Volumes/Sarah Lehnert DFO/FROM_COMPUTERS/Windows_Computer/TransAtlantic_Genomewide_213K/Tajima/Updated_184K/")
+
+#Import BGZIPPED vcf (using bgzip from htslib), with corresponding indexed file from histlib tabix
+
+#europe map data
+POS <- read.delim("SNPs_for_Dxy_Combined_EU_NorthAm/Nor_Can_GOOD_SNPs_maf001_updated_noNA.map", header=FALSE)
+head(POS)
+colnames(POS) <- c("CHR", "SNPNAME", "A2", "BP" )
+
+#North america map data
+POS_north <- read.delim("NorthAM_maf001/canada_maf001_148K_updated_NoNA.map", header=FALSE)
+head(POS_north)
+colnames(POS_north) <- c("CHR", "SNPNAME", "A2", "BP" )
+
+#read in vcf for North America
+NA_CHR19 <- readVCF("NorthAM_maf001/220K_NA_Maf01_184K_bgzip.vcf.gz", 1000,
+                    tid =  "19", min(POS_north$BP[which(POS_north$CHR==19)]),
+                    max(POS_north$BP[which(POS_north$CHR==19)]),
+                    include.unknown = TRUE)
+
+#run to get tajima's D
+NA_CHR19_Slide <- sliding.window.transform(NA_CHR19, width = 1000000, jump = 1000000, type = 2)
+NA_CHR19_Slide@region.names
+NA_CHR19_Slide_genome.pos <- sapply(NA_CHR19_Slide@region.names, function(x){
+  split <- strsplit(x," ")[[1]][c(1,3)]
+  8
+  val   <- mean(as.numeric(split))
+  return(val)
+})
+NA_CHR19_Slide_genome.pos
+NA_CHR19_Slide <- neutrality.stats(NA_CHR19_Slide)
+NA_CHR19_Slide <- diversity.stats(NA_CHR19_Slide, pi = F)
+
+NA_CHR19_TD <- as.data.frame(cbind("Tajima" = NA_CHR19_Slide@Tajima.D, 
+                                   "Position" = as.integer(as.character(NA_CHR19_Slide_genome.pos))))
+colnames(NA_CHR19_TD) <- c("TajimaD", "Position")
+
+
+#Read in vcf for Europe
+EU_CHR19 <- readVCF("Europe_maf001/220K_new_184K_eu_maf001_bgzip.vcf.gz", 1000,
+                    tid =  "19", min(POS$BP[which(POS$CHR==19)]), max(POS$BP[which(POS$CHR==19)]), 
+                    include.unknown = TRUE)
+EU_CHR19_Slide <- sliding.window.transform(EU_CHR19, width = 1000000, jump = 1000000, type = 2)
+EU_CHR19_Slide@region.names
+EU_CHR19_Slide_genome.pos <- sapply(EU_CHR19_Slide@region.names, function(x){
+  split <- strsplit(x," ")[[1]][c(1,3)]
+  8
+  val   <- mean(as.numeric(split))
+  return(val)
+})
+
+EU_CHR19_Slide_genome.pos
+EU_CHR19_Slide <- neutrality.stats(EU_CHR19_Slide)
+EU_CHR19_Slide <- diversity.stats(EU_CHR19_Slide, pi = F)
+
+EU_CHR19_TD <- as.data.frame(cbind("Tajima" = EU_CHR19_Slide@Tajima.D, "Position" = as.integer(as.character(EU_CHR19_Slide_genome.pos))))
+colnames(EU_CHR19_TD) <- c("TajimaD", "Position")
+
+
+#Plots of combined values
+ggplot() + 
+  geom_smooth(data = NA_CHR19_TD, aes(x=Position, y=TajimaD, colour = "NA"),method="loess",  span = .1, se=FALSE) +
+  geom_smooth(data = EU_CHR19_TD, aes(x=Position, y=TajimaD, colour = "EU"),method="loess",  span = .1, se=FALSE) +
+  theme_classic() + geom_vline(xintercept = 5.4e+7) + geom_vline(xintercept = 5.5e+7)
+
+#save data together
+new_data_chr19_combined=as.data.frame(cbind( NA_CHR19_TD, EU_CHR19_TD))
+colnames(new_data_chr19_combined) <- c("TajimaD_NA", "Position_NA", "TajimaD_EU", "Position_EU")
+
+write.table(new_data_chr19_combined, "TajimaD_each_Chr19.txt", quote = F, row.names = F, col.names = T ,sep="\t")
+
