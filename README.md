@@ -16,7 +16,7 @@ Scripts/code include:
 
 3- Fst (in plink and R)
 
-4- Mean Fst per 1Mbp window (in R) (same script used for pcadapt q-values)
+4- Mean Fst per 1Mbp window (in R) (this same script used for pcadapt q-values)
 
 5- Allele frequency calculations (in R)
 
