@@ -75,3 +75,26 @@ colnames(new_data_chr19_combined) <- c("TajimaD_NA", "Position_NA", "TajimaD_EU"
 
 write.table(new_data_chr19_combined, "TajimaD_each_Chr19.txt", quote = F, row.names = F, col.names = T ,sep="\t")
 
+
+##Nice plot of data combined - did multiple plots togther for chromosomes
+
+sliding_Tajima19=read.table("/Volumes/Sarah Lehnert DFO/FROM_COMPUTERS/Windows_Computer/TransAtlantic_Genomewide_213K/Tajima/Updated_184K/TajimaD_each_Chr19.txt", header=T)
+
+plot_chr19_tajima=ggplot() +
+  ylab("Tajima's D")+
+  xlab("Chr 19 Position")+
+  geom_rect(aes(ymin=min(sliding_Tajima19$TajimaD_NA)-0.5, 
+                ymax=max(sliding_Tajima19$TajimaD_ALL)+0.5,
+                xmin=5.4e7, xmax=5.5e7), fill="gray80")+ ylab("")+xlab("")+
+  coord_cartesian(ylim=c(min(sliding_Tajima19$TajimaD_NA)-0.5, max(sliding_Tajima19$TajimaD_ALL)+0.5),
+                  expand=F)+
+  geom_smooth(data = sliding_Tajima19,
+              aes(x=Position , y=TajimaD_EU, colour = "EU"), #stat="identity")+
+              method="loess",  span = .1, se=FALSE) + 
+  geom_smooth(data = sliding_Tajima19,
+              aes(x=Position , y=TajimaD_NA, colour = "NA"), #stat="identity")+
+              method="loess",  span = .1, se=FALSE) + 
+  scale_colour_manual(values=c( "hotpink","skyblue2"))+
+  #geom_text(aes(x=3.65e7, y=6.5), label="*", size=10, col="darkgreen")+
+  theme_classic()  
+NULL
