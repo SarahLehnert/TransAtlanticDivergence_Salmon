@@ -14,7 +14,7 @@ Scripts/code include:
 
 2- Pcadapt (in R)
 
-3- Fst (in plink)
+3- Fst (in plink and R)
 
 4- Mean Fst and pcadapt q-values per 1Mbp window (in R)
 
