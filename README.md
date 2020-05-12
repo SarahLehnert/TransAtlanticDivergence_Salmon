@@ -34,6 +34,8 @@ Scripts/code include:
 
 12- Gene annotation plot (in R, with data from NCBI) *************
 
+13- Gene ontology analysis (in R, with data from NCBI)
+
 -----
 
 <b>MS Title: </b>Divergent and linked selection shape patterns of genomic differentiation between European and North American Atlantic salmon (Salmo salar)
