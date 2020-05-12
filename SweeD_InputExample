@@ -1,0 +1,11 @@
+#Example of SweeD input
+
+#First recode and subset vcf for sweed - after filtering for MAF>0.01 within Europe alone
+
+vcftools --vcf /home/ian/Desktop/Sarah/Salmon/TransAtlantic_Paper/Sweed/Europe_maf001/220K_new_184K_eu_maf001.vcf.gz.recode.vcf --chr 19 --out vcf_chr19_eu --recode 
+
+
+#Second run sweed analysis for Europe
+
+./SweeD -input /home/ian/Desktop/Sarah/Salmon/TransAtlantic_Paper/Sweed/Europe_maf001/vcf_chr19_eu.recode.vcf -grid 200 -name chr19_sweed_europe
+
