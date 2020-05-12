@@ -34,7 +34,7 @@ Scripts/code include:
 
 12- Gene annotation plot (in R, with data from NCBI) *************
 
-13- Gene ontology analysis (in R, with data from NCBI)
+13- Gene ontology analysis (in R, with data from NCBI) *************
 
 -----
 
