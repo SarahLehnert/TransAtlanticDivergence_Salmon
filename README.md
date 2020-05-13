@@ -2,13 +2,13 @@
 
 R scripts and codes for paper on trans-Atlantic divergence in Atlantic Salmon in Molecular Ecology (accepted).
 
-Codes are provided for analysing data and recreating figures. Note that some figures were combined and further edited in Illustator.
+Codes are provided for analysing data and creating figures. Note that some figures were combined and further edited in Illustator.
 
 If you have any questions/problems with the scripts, please do not hesistate to contact me: sarah.lehnert@dfo-mpo.gc.ca
 
 -----
 
-Scripts/codes include:
+Scripts/codes used in paper:
 
 1- Map of sample sites (in R)
 
@@ -24,7 +24,7 @@ Scripts/codes include:
 
 7- SweeD CLR (in SweeD - command line)
 
-8- Twisst (in Twisst - command line) (not included; see: https://github.com/simonhmartin/twisst)
+8- twisst (in twisst - command line; see: https://github.com/simonhmartin/twisst)
 
 9- Linkage disequilibrium calculations (in plink and R)
 
