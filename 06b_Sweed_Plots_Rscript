@@ -1,12 +1,13 @@
 #Libraries 
 library(ggplot2)
 
-#Rscript for plotting CLR/Sweed results
+#Rscript for plotting CLR/Sweed results (Figure in Supplement)
 
+#This R script include 
+  # 1 - Reading in SweeD results and plotting them with outliers indicated by the top 5% of SNP values
+
+#Set directory
 setwd("/Volumes/Sarah Lehnert DFO/FROM_COMPUTERS/Windows_Computer/TransAtlantic_Genomewide_213K/185K_SNPS_Nor_Can_NEW/SweeD/")
-
-#Instead of outliers as standard deviations from the mean - I chose a 5% cut-off. so the top 95% of SNPs are "significant"
-
 
 ##########  Ssa06
 
