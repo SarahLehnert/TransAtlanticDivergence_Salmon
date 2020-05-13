@@ -8,6 +8,10 @@ library(reshape2)
 library(ggplot2)
 library(gplots)
 
+#This R script include 
+  # 1 - Reading in r2 matrix from plink for the whole chromosome (continent seperately)
+  # 2 - A for loop that calculated mean r2 (LD) between SNPs within a 50 SNP window - to calculate mean LD across the chromosome
+
 ###########
 ##Sliding window LD
 
