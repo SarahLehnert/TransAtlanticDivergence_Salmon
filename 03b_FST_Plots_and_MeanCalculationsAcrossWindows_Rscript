@@ -4,6 +4,7 @@ library(data.table)
 library(qqman)
 library(windowscanr)
 library(cowplot)
+library(ggplot2)
 
 #This R script include 
   # 1 - Manhattan plot for all FST values
