@@ -4,6 +4,13 @@ library(dplyr)
 
 setwd("~/Desktop/Sarah/Salmon/TransAtlanticPaper/Recombination/")
 
+#This R script includes
+  # 1 - Create a fasta file of available SNPs from the atlantic salmon linkage map 
+  #    -This fasta file was then blasted against the genome (not included here) and a .csv of hits was saved
+  # 2 - Results of BLAST were then filtered here based on e-value and identity to select the best match
+  # 3 - Physical genomic position and linkage map were compared for available SNPs (for Europe and North America seperately)
+  # 4 - Recombination rates were calculated as cm/MBP 
+
 #First use published sequences from linkage map to get genomic positions (physical) 
 
 #Read linkage map info - get sequences for SNPs
@@ -26,17 +33,11 @@ colnames(hits)=c("SNP", "CHR", "Iden", "size", "x", "y", "QueryStart", "QueryEnd
 hit_results=hits %>% group_by(SNP) %>% top_n(1, MaxScore)
 hit_results2=hit_results %>% group_by(SNP) %>% top_n(1, 1/Eval)
 
-#Oultier function (taken from Brenna Forester's RDA vignette)
-outliers <- function(x,z){
-  lims <- mean(x) + c(-1, 1) * z * sd(x)     # find loadings +/-z sd from mean loading     
-  x[x < lims[1] | x > lims[2]]               # locus names in these tails
-}
-
 #Note some SNPs are duplicated (Remove these for analyses below)
 #means that evalues and max scores are the same (just keep one - no reason to select one of another)
 sum(duplicated(hit_results$SNP))
 
-#Get chromosome names to merge with data from NCBI
+#Get chroomosome names to merge with data from NCBI
 Chrom_names=read.table("Chr_report.txt")
 
 #Set as data frame for Hits
