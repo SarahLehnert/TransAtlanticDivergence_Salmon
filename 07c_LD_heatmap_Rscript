@@ -1,12 +1,15 @@
-#Rscript for creating LD heatmaps
-#This is the script for Ssa06 - the same script was used for each chromosome
-
-setwd("/Users/Bradbury/Desktop/Sarah/TransAtlantic_Genomewide_213K/185K_SNPS_Nor_Can_NEW/AlleleFreq/Region_LD/LargerRegion_Chr6_13/")
-
 #Packages
 library(genepopedit)
 library(reshape2)
 library(gplots)
+
+#Set directory
+setwd("/Users/Bradbury/Desktop/Sarah/TransAtlantic_Genomewide_213K/185K_SNPS_Nor_Can_NEW/AlleleFreq/Region_LD/LargerRegion_Chr6_13/")
+
+#This R script includes
+  # 1 - Reading in r2 matrix (LD) generated in plink and plotting LD as a heatmap
+#This is the script for Ssa06 - the same script was used for each chromosome
+
 
 #LD matrix is created in plink using --r2 square to create a square matrix of LD values (r2)
 #This is done seperately for Europe and Canada
