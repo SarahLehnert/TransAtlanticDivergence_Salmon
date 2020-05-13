@@ -11,6 +11,12 @@ library(cowplot)
   # 3 - Manhattan plot of mean FST values (with outliers)
   # 4 - Smoothed line plots of mean FST values for chromosomes of interest
 
+#Note that the same script was used to for mean pcadapt results, where mean q-value per 1mbp was
+#calculated in the same way using windowscanr, and plotted with qqman for manhattan and ggplot2 for smoothed line plots 
+
+#In both FST and q-values - outliers (based on 1mbp windows) were determined as values that were
+#greater than ±3 SD from the mean, using the outlier function below
+
 ####################### Manhattan plot of all FST values ####################### 
 #Read in FST values
 fst_results=fread("Nor_Can_GOOD_SNPs_maf001_fst.fst", header=T)
@@ -37,10 +43,11 @@ manhattan(x = all_data[!is.na(all_data$CHR),], chr = "CHR", bp = "POS", snp = "S
 
 ## For WindowScaner - to calculate mean FST per 1Mbp window
 
+#add extra fake position at 1MBP for the max. --- see below
+
 fake_data = list()
 
-#add extra fake position at 1MBP for the max. --- see below
-# for loop gets max value for each chromosome
+#for loop gets max value for each chromosome
 #If this is not done, then it does not calculate values for last window on chromosome
 #Note that used FST = NA for these 'fake' position - so does not influence results
 
@@ -86,7 +93,7 @@ fst_sliding2=fst_sliding[which(fst_sliding$FST_n>0),]
 write.table(fst_sliding2, "FST_SlidingWindow_RESULTS_185K_norCan_maf001.txt", col.names=T, row.names = F, quote = F, sep="\t")
 
 
-############# Plot manhattan  of mean values per windows
+############# Plot manhattan of mean values per windows
 
 #Ensure chromosome is numeric
 fst_sliding2$CHR=as.numeric(as.character(fst_sliding2$CHR))
@@ -95,14 +102,15 @@ fst_sliding2$CHR=as.numeric(as.character(fst_sliding2$CHR))
 min(fst_sliding2$FST_mean)
 max(fst_sliding2$FST_mean)
 
-#Remove windows with less than 5 SNPs (only keep those wtih =5 or more)
+#Remove windows with less than 5 SNPs (only keep those with =5 or more)
 fst_sliding2_5snpsplus=fst_sliding2[which(fst_sliding2$FST_n >= 5),]
 
 #Plot manhattan of values
 manhattan(x = fst_sliding2_5snpsplus, chr = "CHR", bp = "win_start", snp = "snp",
           p = "FST_mean", logp = F, ylim=c(0,0.7), col=c("gray50", "dodgerblue4"))
 
-#Identify outliers (script taken from Brenna Forester's RDA vignette)
+#Identify outliers (script taken from Brenna Forester's RDA vignette; https://popgen.nescent.org/2018-03-27_RDA_GEA.html)
+
 outliers <- function(x,z){
   lims <- mean(x) + c(-1, 1) * z * sd(x)     # find loadings +/-z sd from mean loading     
   x[x < lims[1] | x > lims[2]]               # locus names in these tails
@@ -138,12 +146,12 @@ manhattan(x = fst_sliding2_5snpsplus, chr = "CHR", bp = "win_start", snp = "snp"
 
 
 chr6_plot=ggplot(fst_sliding2_5snpsplus[which(fst_sliding2_5snpsplus$CHR==6),])+#geom_point(aes(x=win_start, y=FST_mean))+
-  geom_rect(aes(xmin=7.1e+07, xmax= 7.3e+07, ymin=0, ymax=0.6), fill="gray80")+
+  geom_rect(aes(xmin=7e+07, xmax= 7.3e+07, ymin=0, ymax=0.6), fill="gray80")+
   geom_smooth(aes(x=win_mid, y=FST_mean), stat = "identity")+theme_bw()+theme(panel.grid = element_blank())+
   xlab("Chromosome 6 position")+ylab("Mean FST")
 
 chr13_plot=ggplot(fst_sliding2_5snpsplus[which(fst_sliding2_5snpsplus$CHR==13),])+#geom_point(aes(x=win_start, y=FST_mean))+
-  geom_rect(aes(xmin=7.75e+07, xmax= 7.8e+07, ymin=0, ymax=0.6), fill="gray80")+
+  geom_rect(aes(xmin=7.5e+07, xmax= 7.8e+07, ymin=0, ymax=0.6), fill="gray80")+
   geom_smooth(aes(x=win_mid, y=FST_mean), stat = "identity")+theme_bw()+theme(panel.grid = element_blank())+
   xlab("Chromosome 13 position")+ylab("Mean FST")
 
@@ -155,7 +163,7 @@ chr16_plot=ggplot(fst_sliding2_5snpsplus[which(fst_sliding2_5snpsplus$CHR==16),]
 
 
 chr19_plot=ggplot(fst_sliding2_5snpsplus[which(fst_sliding2_5snpsplus$CHR==19),])+#geom_point(aes(x=win_start, y=FST_mean))+
-  geom_rect(aes(xmin=5.3e+07, xmax=5.4e+07, ymin=0, ymax=0.6), fill="gray80")+
+  geom_rect(aes(xmin=5.4e+07, xmax=5.5e+07, ymin=0, ymax=0.6), fill="gray80")+
   geom_smooth(aes(x=win_mid, y=FST_mean), stat = "identity")+theme_bw()+theme(panel.grid = element_blank())+
   xlab("Chromosome 19 position")+ylab("Mean FST")
 
