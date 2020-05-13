@@ -4,7 +4,7 @@ R scripts and codes for paper on trans-Atlantic divergence in Atlantic Salmon in
 
 Codes are provided for analysing data and creating figures. Note that some figures were combined and further edited in Illustator.
 
-If you have any questions/problems with the scripts, please do not hesistate to contact me: sarah.lehnert@dfo-mpo.gc.ca
+If you have any questions/problems with the scripts, please do not hesistate to contact me: sarah.lehnert[at]dfo-mpo.gc.ca
 
 -----
 
