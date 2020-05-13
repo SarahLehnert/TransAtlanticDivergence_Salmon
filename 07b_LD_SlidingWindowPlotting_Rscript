@@ -1,6 +1,3 @@
-#Rscript for LD across chromosome - plotting sliding window LD values and Fst together
-#Script for Ssa06 included here - same for other chromosomes
-
 #Packages
 library(genepopedit)
 library(reshape2)
@@ -8,7 +5,12 @@ library(ggplot2)
 library(gplots)
 library(cowplot)
 
+#This R script include 
+  # 1 - Plotting mean LD across chromosome (outlier regions determined by top 5% cutoff) and smoothed line for FST
 
+#Script for Ssa06 included here - same for other chromosomes
+
+#Set directory
 setwd("/Users/Bradbury/Desktop/Sarah/TransAtlantic_Genomewide_213K/185K_SNPS_Nor_Can_NEW/AlleleFreq/Whole_Chromosome_LD/")
 
 ###########
