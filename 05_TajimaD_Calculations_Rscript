@@ -2,8 +2,13 @@
 library(PopGenome)
 library(ggplot2)
 
+#This R script include 
+  # 1 - Calculating Tajima's D for Europe and North America in PopGenome
+  # 2 - Plotting results (but see Fig 3 plotting script for full re-creation of plot)
+
 #This R script is for Tajima's D calculations for Ssa19 (the same script was used for other chromosomes )
 
+#Set directory
 setwd(dir = "/Volumes/Sarah Lehnert DFO/FROM_COMPUTERS/Windows_Computer/TransAtlantic_Genomewide_213K/Tajima/Updated_184K/")
 
 #Import BGZIPPED vcf (using bgzip from htslib), with corresponding indexed file from histlib tabix
