@@ -2,9 +2,15 @@ setwd("~/Desktop/Sarah/Salmon/TransAtlanticPaper/Recombination/")
 library(genepopedit)
 library(windowscanr)
 library(ggplot2)
+library(cowplot)
 
-#This script includes plots for recombination rates and script for gene density across chromosme
-
+#This R script includes
+  # 1 - Plots for recombination rate across chromosomes (note any misplaced SNPs were removed to calculate recombination rate)
+      #outlier regions were determined as values that were +/- 2 SD from the mean
+  # 2 - Gene density (or count) per 1MBP were calculated using windowscanr
+        #outlier regions were determined as values that were +/- 2 SD from the mean
+  # 3 - Plots for gene density were made and combined with those for recombination using cowplot
+  
 #Outlier script (taken from Brenna Forester's RDA vignette)
 outliers <- function(x,z){
   lims <- mean(x) + c(-1, 1) * z * sd(x)     # find loadings +/-z sd from mean loading     
