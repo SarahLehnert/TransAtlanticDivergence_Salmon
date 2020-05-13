@@ -4,6 +4,13 @@ setwd("/Volumes/Sarah Lehnert DFO/FROM_COMPUTERS/Windows_Computer/TransAtlantic_
 library(genepopedit)
 library(reshape2)
 
+#This R script include 
+ # 1- Generating allele frequencies for populations using genepopedit
+ # 2- Adjusting frequencies so that the allele that is considered the 'major' allele is found in Europe (results are the same but this is used for plotting purposes)
+ # 3- Plotting allele frequencies in a heatmap with populations aligned by latitude within continents
+#This script was used for Ssa06, and the same script was applied to other chromosomes of interest
+
+
 #Get MAF across Chr 6 region - from subsetted genepop file
 freq=genepop_allelefreq("AlleleFreq/AlleleFreq_region/Chr6/LargerRegion/genepop_chr6_67-76.txt", wide = F, fullpanel = F)
 
@@ -31,7 +38,7 @@ max_col=ncol(freq_by_lat)
 freq_latitude_3=freq_by_lat[,c(1,3, 11:max_col)] #Inlcude Pop, Lat, and MAF for each locus
 dim(freq_latitude_3)
 
-#change values so alleles are changed base don frequency in Canada (if maf < 0.5 change all values to 1-maf, if maf >0.5 leave it as is..)
+#change values so alleles are changed based on frequency in Canada (if maf < 0.5 change all values to 1-maf, if maf >0.5 leave it as is..)
 for(i in 2:ncol(freq_latitude_3)){
   
   if(freq_latitude_3[80,i]< 0.5){
