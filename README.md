@@ -10,31 +10,31 @@ If you have any questions/problems with the scripts, please do not hesistate to 
 
 Scripts/codes used in paper:
 
-1- Map of sample sites (in R)
+- Map of sample sites (in R)
 
-2- Pcadapt (in R)
+- Pcadapt (in R)
 
-3- Fst (in plink and R)
+- Fst (in plink and R)
 
-4- Mean Fst per 1Mbp window (in R) (this same script used for pcadapt q-values)
+- Mean Fst per 1Mbp window (in R) (this same script used for pcadapt q-values)
 
-5- Allele frequency calculations (in R)
+- Allele frequency calculations (in R)
 
-6- Tajima's D (in R)
+- Tajima's D (in R)
 
-7- SweeD CLR (in SweeD - command line)
+- SweeD CLR (in SweeD - command line)
 
-8- twisst (in twisst - command line; see: https://github.com/simonhmartin/twisst)
+- twisst (in twisst - command line; see: https://github.com/simonhmartin/twisst)
 
-9- Linkage disequilibrium calculations (in plink and R)
+- Linkage disequilibrium calculations (in plink and R)
 
-10- Recombination rate calculations (in R, with data from BLAST)
+- Recombination rate calculations (in R, with data from BLAST)
 
-11- Gene density calculations (in R, with data from NCBI)
+- Gene density calculations (in R, with data from NCBI)
 
-12- Gene annotation plot (in R, with data from NCBI)
+- Gene annotation plot (in R, with data from NCBI)
 
-13- Gene ontology analysis (in R, with data from NCBI) 
+- Gene ontology analysis (in R, with data from NCBI) 
 
 -----
 
