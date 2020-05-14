@@ -1,5 +1,7 @@
+#Set directory
 setwd("/Volumes/Sarah Lehnert DFO/FROM_COMPUTERS/Windows_Computer/TransAtlantic_Genomewide_213K/185K_SNPS_Nor_Can_NEW/Fst/")
 
+#Libraries
 library(data.table)
 library(qqman)
 library(windowscanr)
@@ -42,7 +44,7 @@ manhattan(x = all_data[!is.na(all_data$CHR),], chr = "CHR", bp = "POS", snp = "S
 
 ####################### Get mean FST per 1Mbp window  ####################### 
 
-## For WindowScaner - to calculate mean FST per 1Mbp window
+## For WindowScanr - to calculate mean FST per 1Mbp window
 
 #add extra fake position at 1MBP for the max. --- see below
 
@@ -54,7 +56,7 @@ fake_data = list()
 
 for(i in 1:30){
   dat_EU=as.data.frame((max(all_data$POS[which(all_data$CHR==i)])))
-  dat_EU$i <- i  # maybe you want to keep track of which iteration produced it?
+  dat_EU$i <- i  # maybe you want to keep track of which iteration produced it
   fake_data[[i]] <- dat_EU # add it to your list  }
 }
 fake_data_chr = do.call(rbind, fake_data)
@@ -63,6 +65,7 @@ fake_data_chr$Fake_Pos=fake_data_chr$Max_Pos+1e6
 
 #Create fake data frame to add to include extra windows at the end of chromosome ... Fake position have extra 1MBP added to the chromosome
 #Make dataframe the same as the one you want to add to
+
 head(all_data)
 fake_data_to_add_FST=as.data.frame(cbind("CHR"=fake_data_chr$Chr, 
   "SNP"=paste0("AX-fake",1:30), 
@@ -83,12 +86,12 @@ all_data_plus_extra$FST=as.numeric(as.character(all_data_plus_extra$FST))
 fst_sliding=winScan(x = all_data_plus_extra, groups = "CHR", position = "POS",
         win_size = 1000000, win_step = 1000000,  values = "FST", funs = "mean")
 
-#Add "chr/position' column
+#Add "chr/position' column (called snp) for reference
 fst_sliding$snp=interaction(fst_sliding$CHR, fst_sliding$win_start, sep="_")
 fst_sliding$FST_mean=as.numeric(as.character(fst_sliding$FST_mean))
 
 #Retain windows with at least 1 SNP used for the calculations
-fst_sliding2=fst_sliding[which(fst_sliding$FST_n>0),]
+fst_sliding2 <- fst_sliding[which(fst_sliding$FST_n>0),]
 
 #Save results
 write.table(fst_sliding2, "FST_SlidingWindow_RESULTS_185K_norCan_maf001.txt", col.names=T, row.names = F, quote = F, sep="\t")
@@ -119,7 +122,7 @@ outliers <- function(x,z){
 
 #Get Fst values
 loadings=as.data.frame(fst_sliding2_5snpsplus$FST_mean)
-#Add snps as row names
+#Add info chr/position (called snp) as row names
 rownames(loadings)=fst_sliding2_5snpsplus$snp
 
 #Get fst vlaues that are 3 standard deviations from the mean
@@ -143,8 +146,7 @@ manhattan(x = fst_sliding2_5snpsplus, chr = "CHR", bp = "win_start", snp = "snp"
           col=c("gray50", "dodgerblue4"))
 
 
-#Chromosome specific plots - smoothed line - similar to plots in Figure 3
-
+#Chromosome specific plots - smoothed line - similar to plots in Figure 3 (see other script for combining all plots for Fig. 3)
 
 chr6_plot=ggplot(fst_sliding2_5snpsplus[which(fst_sliding2_5snpsplus$CHR==6),])+#geom_point(aes(x=win_start, y=FST_mean))+
   geom_rect(aes(xmin=7e+07, xmax= 7.3e+07, ymin=0, ymax=0.6), fill="gray80")+
