@@ -36,12 +36,11 @@ sweep_6_plot=ggplot(sweeps6)+
   geom_point(data=sweeps_NA6, aes(x=Position, y=Likelihood), col="red")+
   theme_bw()+theme(panel.grid = element_blank())+
   xlab("Chromosome 6 position")+ylab("Likelihood")+
-  
-geom_text(data=sweeps_sign_NA,
+  geom_text(data=sweeps_sign_NA,
           nudge_y = -0.1,
           aes(x=Position, y=Likelihood),
           label = "*",col="red", size=12)+
-geom_text(data=sweeps_sign_EU, nudge_y = -0.1,
+  geom_text(data=sweeps_sign_EU, nudge_y = -0.1,
           aes(x=Position, y=Likelihood),  label = "*",col="dodgerblue3", size=12)
 NULL
 
@@ -56,17 +55,17 @@ sweeps_NA13=read.table("SweeD_Report.chr13_sweed_northam", header=T, skip=2, fil
 keep_eu_13=nrow(sweeps13)*0.05
 keep_na_13=nrow(sweeps_NA13)*0.05
 
+#top North Am. snps
 top_na_13=sweeps_NA13[order(sweeps_NA13$Likelihood, decreasing = T),]
 sweeps_sign_NA_13=top_na_13[1:keep_na_13,]
 
+#top European snps
 top_EU_13=sweeps13[order(sweeps13$Likelihood, decreasing = T),]
 sweeps_sign_EU_13=top_EU_13[1:keep_eu_13,]
 
 #Max value of likelihoods for plotting
 max(sweeps_sign_EU_13$Likelihood)
 max(sweeps_sign_NA_13$Likelihood)
-
-
 
 sweep_13_plot=ggplot(sweeps13)+  
   geom_rect(aes(xmin=7.5e+07, xmax= 7.8e+07, ymin=0, ymax=8), fill="gray80")+
