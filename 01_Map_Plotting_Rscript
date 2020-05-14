@@ -12,12 +12,8 @@ library(ggplot2)
 coords=read.csv("All_80_Locations.csv", header=T)
 #make sure all coordinates are within the limits of the map range (otherwise will add points anyway)
 
-#########Coordindate range for the map for Canada
-Sample.Lat.lim=c(42, 60)
-Sample.Long.lim=c(-49,-70)
-
-#Now get a bathy map for Canada area (use same coordinates as above) - Approximately Maine to Northern Labrador/QC
-getNOAA.bathy(-49,-70,42,60, res=1,keep=T)->bathydata
+#Now get a bathy map for Canada area - Approximately Maine to Northern Labrador/QC
+getNOAA.bathy(-49,-70,42,60, res=1,keep=T) -> bathydata
 
 #Can save as PDF with this - optional (use with dev.off() below if saving)
 #pdf(file="Map_autoplot_Canada.pdf", width = 13, height=12, bg = "white")
@@ -31,7 +27,8 @@ map=autoplot(bathydata, geom=c("r", "c"), colour="grey", size=0.1) +
   theme(legend.position = "none")
 
 #make sure there are no coordinates (populations) outside of map region (otherwise it will add those too without map area )
+#Add population points
 map + geom_point(data=coords[which(coords$Location=="CAN"),],
-                 aes(x=Long, y=Lat), col="red", size=3, inherit.aes = F) ##Add population points
+                 aes(x=Long, y=Lat), col="red", size=3, inherit.aes = F)
 
 #dev.off() #finish saving to PDF if using
