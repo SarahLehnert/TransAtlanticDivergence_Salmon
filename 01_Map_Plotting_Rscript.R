@@ -1,7 +1,7 @@
 #Set directory
 setwd("~/Desktop/Sarah/Salmon/TransAtlanticPaper/map/")
 
-#Example of map for Canadian populations 
+#Example of map for Canadian populations
 #The same script was used for Norway with different lat/long range
 
 ## Load Libraries --------------
