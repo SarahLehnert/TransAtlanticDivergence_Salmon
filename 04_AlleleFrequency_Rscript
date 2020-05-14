@@ -3,6 +3,7 @@ setwd("/Volumes/Sarah Lehnert DFO/FROM_COMPUTERS/Windows_Computer/TransAtlantic_
 #Packages
 library(genepopedit)
 library(reshape2)
+library(gplots)
 
 #This R script include 
  # 1- Generating allele frequencies for populations using genepopedit
