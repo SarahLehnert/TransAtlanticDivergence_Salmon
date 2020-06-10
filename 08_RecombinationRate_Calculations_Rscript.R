@@ -5,11 +5,17 @@ library(dplyr)
 setwd("~/Desktop/Sarah/Salmon/TransAtlanticPaper/Recombination/")
 
 #This R script includes
-  # 1 - Create a fasta file of available SNPs from the atlantic salmon linkage map 
-  #    -This fasta file was then blasted against the genome (not included here) and a .csv of hits was saved
-  # 2 - Results of BLAST were then filtered here based on e-value and identity to select the best match
-  # 3 - Physical genomic position and linkage map were compared for available SNPs (for Europe and North America seperately)
-  # 4 - Recombination rates were calculated as cm/MBP 
+# 1 - Create a fasta file of available SNPs from the atlantic salmon linkage map 
+#    -This fasta file was then blasted against the genome (not included here) and a .csv of hits was saved
+# 2 - Results of BLAST were then filtered here based on e-value and identity to select the best match
+# 3 - Physical genomic position and linkage map were compared for available SNPs (for Europe and North America seperately)
+# 4 - Recombination rates were previously calculated as cm/MBP using linkage map and physical position
+#  --> but this has now been calculated using MareyMap package (see additional R script for details)
+#  --> this was done after manuscript appeared online but before final publication (corrected in proofs)
+
+#First use published sequences from linkage map to get genomic positions (physical) 
+
+setwd("~/Desktop/Sarah/Salmon/TransAtlanticPaper/Recombination/")
 
 #First use published sequences from linkage map to get genomic positions (physical) 
 
@@ -37,7 +43,7 @@ hit_results2=hit_results %>% group_by(SNP) %>% top_n(1, 1/Eval)
 #means that evalues and max scores are the same (just keep one - no reason to select one of another)
 sum(duplicated(hit_results$SNP))
 
-#Get chroomosome names to merge with data from NCBI
+#Get chromosome names to merge with data from NCBI
 Chrom_names=read.table("Chr_report.txt")
 
 #Set as data frame for Hits
@@ -66,9 +72,19 @@ head(map_bp)
 #Merge canadian map with SNP info hit
 map_canada_Bp=merge(x=df_can, y=hits_all, by.x=7, by.y=6)
 
-#Create cM/MBP value -- note it is actually cm/MBP (but R heading was CM_BP)
-map_bp$CM_BP=map_bp$Female.map/((map_bp$start/1e6))
-map_canada_Bp$CM_BP=map_canada_Bp$Female.map/(map_canada_Bp$start/1e6)
+#########
+######### Note --- It has come to my attention that this is not the appropraite way to calculate recombination rate
+### Therefore - recombination was calculated using the MareyMap R package - see other script for more details... 
+
+#############################################################################################################################################
+######### These estimates of cM/MBP were not used in the paper - but note other parts of the script are relevant ############################
+#############################################################################################################################################
+
+#Create cM/MBP value -- note it is actually cm/MBP (but R heading was CM_BP) 
+#THIS WAS NOT USED: - 
+#This is not the appropriate way to calculate recombination rate (now use MareyMap package in R -see other R script)
+#map_bp$CM_BP=map_bp$Female.map/((map_bp$start/1e6))
+#map_canada_Bp$CM_BP=map_canada_Bp$Female.map/(map_canada_Bp$start/1e6)
 
 #Remove duplicated SNPs for Europe
 test=map_bp[!duplicated(map_bp$SNP), ]
@@ -79,8 +95,9 @@ test2=map_canada_Bp[!duplicated(map_canada_Bp$SNP), ]
 nrow(test2)-sum(is.na(test2$Female.map)) #Really for female canadian map there are 3080 SNPs total (no duplicated)
 
 #Calculated Male values - but did not use in paper - this is cm/MBP
-map_bp$CM_BP_male=map_bp$Male.map/((map_bp$start/1e6))
-map_canada_Bp$CM_BP_male=map_canada_Bp$Male.map/(map_canada_Bp$start/1e6)
+#This is not the appropriate way to calculate recombination rate (now use MareyMap package in R -see other R script)
+#map_bp$CM_BP_male=map_bp$Male.map/((map_bp$start/1e6))
+#map_canada_Bp$CM_BP_male=map_canada_Bp$Male.map/(map_canada_Bp$start/1e6)
 
 #Add column for chromosome blast - to match numeric values of Ssa chromosome
 map_canada_Bp$Chr_blast=map_canada_Bp$V2
@@ -92,7 +109,7 @@ map_correct_Chr=map_canada_Bp[which(map_canada_Bp$Chromosome==map_canada_Bp$Chr_
 map_correct_Chr=map_correct_Chr[!duplicated(map_correct_Chr$SNP_ID),]
 
 #Save results for North America
-write.csv(map_correct_Chr[!is.na(map_correct_Chr$CM_BP),], "RecombinationRate_allSNPs_Chr_Canada.csv", quote = F, row.names = F, col.names = T, sep="\t")
+write.csv(map_correct_Chr, "RecombinationRate_allSNPs_Chr_Canada.csv", quote = F, row.names = F, col.names = T, sep="\t")
 
 #Do same for European Linkage Map/blast info
 map_bp$Chr_blast=map_bp$V2
@@ -103,4 +120,5 @@ map_correct_Chr_EU=map_bp[which(map_bp$Chromosome==map_bp$Chr_blast),]
 map_correct_Chr_EU=map_correct_Chr_EU[!duplicated(map_correct_Chr_EU$SNP_ID),]
 
 #Save results for Europe
-write.csv(map_correct_Chr_EU[!is.na(map_correct_Chr_EU$CM_BP),], "RecombinationRate_allSNPs_Chr_Europe.csv", quote = F, row.names = F, col.names = T, sep="\t")
+write.csv(map_correct_Chr_EU[!is.na(map_correct_Chr_EU$Female.map),], "RecombinationRate_allSNPs_Chr_Europe.csv", quote = F, row.names = F, col.names = T, sep="\t")
+
